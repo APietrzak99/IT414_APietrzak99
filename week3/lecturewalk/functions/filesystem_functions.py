@@ -1,0 +1,102 @@
+import platform
+import os.path
+import shutil
+import send2trash
+
+
+def copyFile():
+    my_path = getPath()
+
+    file_to_copy = input("What is the name of the file you would like to copy? ")
+    folder_to_copy_to = input("What is the name of the folder you would like the file to be copied to? ")
+    shutil.copy2(file_to_copy, folder_to_copy_to)
+
+def deleteFile():
+    my_path = getCopyPath()
+
+    file_to_delete = input("What is the name of the file\\folder you would like to delete? ")
+
+    send2trash.send2trash(os.path.join(my_path,file_to_delete))
+
+def drawmenu():
+
+    print("What would you like to do? ")
+    print("To show all files, enter 'S' ")
+    print("To create a new folder, enter 'N' ")
+    print("To copy a file, enter 'C' ")
+    print("To rename a file, enter 'R'")
+    print("To move a file, enter 'M'")
+    print("To delete a file\\folder, enter 'D'")
+
+def getRoot():
+    my_system = platform.system()
+
+    if my_system == "Windows":
+        root_fs = "C:\\"
+    else:
+        root_fs = "/"
+
+    final_filepath = os.path.join(root_fs)
+
+    return final_filepath
+
+def getCopyPath():
+    my_system = platform.system()
+
+    if my_system == "Windows":
+        root_fs = "C:\\"
+    else:
+        root_fs = "/"
+
+    final_filepath = os.path.join(root_fs, "log_processing")
+
+    return final_filepath
+
+def getPath():
+    my_system = platform.system()
+
+    if my_system == "Windows":
+        root_fs = "C:\\"
+    else:
+        root_fs = "/"
+
+    final_filepath = os.path.join(root_fs, "logs")
+
+    return final_filepath
+
+def moveFile():
+    my_path = getPath()
+    my_root = getRoot()
+
+    file_to_move = input("What is the name of the file you would like to move? ")
+    folder_to_move_to = input("What is the name of the folder you would like the file to be moved to? ")
+
+    shutil.move(os.path.join(my_path,file_to_move), os.path.join(my_root,folder_to_move_to))
+
+def renameFile():
+    my_path = getPath()
+
+    file_to_rename = input("What is the name of the file you would like to rename? ")
+    new_name = input("What is the new name for the file? ")
+
+    shutil.move(file_to_rename, new_name)
+
+def showFiles():
+    my_path = getPath()
+    
+    os.chdir(my_path)
+    print("Printing the contents of " + os.getcwd())
+
+    file_list = os.listdir(my_path)
+
+    for file_item in file_list:
+        if os.path.isfile(os.path.join(my_path, file_item)):
+            temp_file_size = os.path.getsize(os.path.join(my_path, file_item))
+            tmp_file_divide = temp_file_size / 1000000
+
+            if tmp_file_divide < 1:
+                print(file_item + "| " + str(temp_file_size) + " bytes")
+            else:
+                print(file_item + "| " + str(tmp_file_divide) + " megabytes")
+        else:
+            print(file_item + " | " + "folder")
