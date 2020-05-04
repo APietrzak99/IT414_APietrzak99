@@ -6,6 +6,7 @@ import ezsheets
 import requests
 from bs4 import BeautifulSoup
 import collections
+import webbrowser
 
 my_url = "https://ool-content.walshcollege.edu/CourseFiles/IT/IT414/MASTER/Week05/WI20-Assignment/sales_data.html"
 request = requests.get(my_url)
@@ -79,23 +80,16 @@ my_url = my_spreadsheet.url
 curr_sheet = my_spreadsheet[0]
 rows = curr_sheet.getRows()
 
+rows[0][0] = "Product"
+rows[0][1] = "Quantity"
+
 row_count_goog = 1
 for val in combined_quantities:
     if isinstance(val,dict):
        for key, value in val.items():
-            curr_sheet.cell(row=row_count_goog, column=1).value = str(key)
-            curr_sheet.cell(row=row_count_goog, column=2).value = int(value)
+            rows[row_count_goog][0] = str(key)
+            rows[row_count_goog][1] = int(value)
     row_count_goog = row_count_goog + 1
-
-rows[0][0] = "Title"
-rows[0][1] = "Author"
-rows[0][2] = "Price"
-rows[1][0] = "Ender's Game"
-rows[1][1] = "Orson Scott Card"
-rows[1][2] = "7.99"
-rows[2][0] = "Harry Potter and The Order of the Phoenix"
-rows[2][1] = "J.K. Rowling"
-rows[2][2] = "18.99"
 
 curr_sheet.updateRows(rows)
 
