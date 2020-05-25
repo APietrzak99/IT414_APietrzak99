@@ -1,0 +1,18 @@
+In windows, you will want to launch the task scheduler app. When in the app, click the create task button, which will then take you to the create task wizard. From here give the task a name and a description, so that anyone who sees the task knows exactly what it does, when, and why. You may need to click "Run with highest privileges" when you are on this screen as well. Click "OK," and you should be met with the triggers interface. Click new in the bottom corner, and you'll open a new window. From here you will want to set the task to run daily, and you will also want to repeat task every 6 hours, if you want it to run 4 times a day evenly spaced. When you click "OK," you should be taken to the new action screen. From here in the program/script field, enter "python." In the "add arguments" box, you will want to type out the full directory that will lead to the file_processor.py file on your computer. From there click "ok," and your task should be created. 
+
+For MAC OS, it gets a bit more complicated. MAC OS uses a system called "launchd" to schedule tasks that you want. These look very reminiscent to XML files, and in fact use a similar layout to one. Here's what the PLIST file looks like to run the script, as per the lesson. 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>Python Exam Script</string>
+    <key>Program</key>
+    <string>python "here fill in the directory to the file_processor.py file on the mac"</string>
+    <key>StartInterval</key>
+    <integer>21600</integer>
+  </dict>
+</plist>
+
+This is a file that will be placed in the /Library/LaunchDaemons folder so that it will load when the MAC system is loaded. 

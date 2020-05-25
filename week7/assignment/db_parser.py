@@ -13,8 +13,6 @@ try:
 except:
     my_db.executeQuery("CREATE TABLE customer_data (customer_ID INT AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(30), last_name VARCHAR(30), street VARCHAR(50), city VARCHAR(30), state CHAR(5), zip VARCHAR(5))")
     my_db.conn.commit()
-    my_db.executeQuery("CREATE TABLE tmp_customer_data (customer_ID INT AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(30), last_name VARCHAR(30), street VARCHAR(50), city VARCHAR(30), state CHAR(5), zip VARCHAR(5))")
-    my_db.conn.commit()
     my_db.executeQuery("CREATE TABLE customer_data_working (customer_ID INT AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(30), last_name VARCHAR(30), street VARCHAR(50), city VARCHAR(30), state CHAR(5), zip VARCHAR(5))")
     my_db.conn.commit()
 
